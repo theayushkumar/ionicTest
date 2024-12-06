@@ -75,3 +75,10 @@
   }
 
 }
+
+
+@media screen and (orientation: landscape) {
+  .controls {
+    height: 100vh !important;
+  }
+}

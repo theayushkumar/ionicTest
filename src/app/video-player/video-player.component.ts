@@ -8,21 +8,13 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 export class VideoPlayerComponent implements OnInit {
 
   @ViewChild('videoPlayer', { static: false }) videoPlayer!: ElementRef<HTMLVideoElement>;
-  currentTime: number = 0;
-  duration: number = 0;
-  isPlaying: boolean = false; // Track whether the video is playing or paused
-
-
   @ViewChild('popover') popover!: { event: Event; };
 
+  currentTime: number = 0;
+  duration: number = 0;
+  isPlaying: boolean = false; 
+  isFullscreen: boolean = false;
   isOpen = false;
-
-  presentPopover(e: Event) {
-    this.popover.event = e;
-    this.isOpen = true;
-  }
-
-  
 
   constructor() { }
 
@@ -82,4 +74,26 @@ export class VideoPlayerComponent implements OnInit {
     const video = this.videoPlayer.nativeElement;
     video.currentTime = event.detail.value;
   }
+
+  presentPopover(e: Event) {
+    this.popover.event = e;
+    this.isOpen = true;
+  }
+
+
+  toggleFullscreen() {
+    const video = this.videoPlayer.nativeElement;
+    if (!this.isFullscreen) {
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      }
+      this.isFullscreen = true;
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      this.isFullscreen = false;
+    }
+  }
+
 }

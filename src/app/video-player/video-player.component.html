@@ -28,9 +28,15 @@
     <div class="bottomMenu">
       <ion-row>
         <span>{{ currentTime | number:'1.0-0' }} / {{ duration | number:'1.0-0' }}</span>
-        <ion-button shape="round" size="small" fill="none">
-          <ion-icon slot="icon-only" name="scan"></ion-icon>
+
+        <ion-button fill="none" shape="round" size="small" (click)="toggleFullscreen()">
+          <ion-icon name="expand-outline" *ngIf="!isFullscreen"></ion-icon>
+          <ion-icon name="contract-outline" *ngIf="isFullscreen"></ion-icon>
         </ion-button>
+
+        <!-- <ion-button shape="round" size="small" fill="none">
+          <ion-icon slot="icon-only" name="scan"></ion-icon>
+        </ion-button> -->
       </ion-row>
 
       <ion-range min="0" [value]="currentTime" [max]="duration" (ionChange)="onRangeChange($event)">
