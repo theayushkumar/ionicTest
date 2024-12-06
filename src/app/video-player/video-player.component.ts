@@ -20,4 +20,5 @@ export class VideoPlayerComponent implements OnInit {
     }
     this.isPlaying = !this.isPlaying;  // Toggle the play/pause state
   }
+  
 }

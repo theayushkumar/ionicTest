@@ -53,17 +53,17 @@
 
     .subControls {
       display: flex;
+      height: 20px;
       justify-content: space-between;
 
       .leftControl,
       .sound,
       .rightControl {
         display: flex;
-        gap: 10px;
         align-items: center;
         justify-content: space-evenly;
 
-        ion-button{
+        ion-button {
           color: white;
         }
       }
@@ -95,7 +95,7 @@
         border-radius: 50%;
       }
 
-      
+
     }
   }
 }
