@@ -1,39 +1,40 @@
-<div class="videoPlayer">
-  <video src="../../assets/video/video.mp4" id="mainVideo" autoplay #videoElement></video>
+<div class="videoPanel">
+  <video src="../../assets/video/video.mp4" class="mainVideo" autoplay></video>
   <div class="controls">
 
-    <div class="progressArea">
-      <input type="range" class="progressBar" id="progressBar" value="0" step="1" min="0" />
+    <div class="topMenu">
+      <ion-buttons slot="start">
+        <ion-button shape="round" routerLink="#">
+          <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-button shape="round" size="small" fill="none">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
     </div>
 
-    <div class="subControls">
-      <div class="leftControl">
-        <ion-button shape="round" size="small" fill="none">
-          <ion-icon slot="icon-only" name="play-skip-back"></ion-icon>
-        </ion-button>
-        <ion-button shape="round" size="small" fill="none" (click)="togglePlayPause(videoElement)">
-          <ion-icon slot="icon-only" [name]="isPlaying ? 'pause' : 'play'"></ion-icon>
-        </ion-button>
-        <ion-button shape="round" size="small" fill="none">
-          <ion-icon slot="icon-only" name="play-skip-forward"></ion-icon>
-        </ion-button>
+    <div class="midMenu">
+      <ion-button shape="round" size="small" fill="none">
+        <ion-icon slot="icon-only" name="play-back"></ion-icon>
+      </ion-button>
+      <ion-button shape="round" fill="none">
+        <ion-icon slot="icon-only" name="Play"></ion-icon>
+      </ion-button>
+      <ion-button shape="round" size="small" fill="none">
+        <ion-icon slot="icon-only" name="play-forward"></ion-icon>
+      </ion-button>
+    </div>
 
-        <div class="sound">
-          <ion-button shape="round" size="small" fill="none">
-            <ion-icon slot="icon-only" name="volume-medium"></ion-icon>
-          </ion-button>
-          <input type="range" class="soundBar" id="volumeControl" value="100" step="1" min="0" max="100"/>
-        </div>
-      </div>
-
-      <div class="rightControl">
-        <ion-button shape="round" size="small" fill="none">
-          <ion-icon slot="icon-only" name="settings"></ion-icon>
-        </ion-button>
+    <div class="bottomMenu">
+      <ion-row>
+        <span>0:03 / 24:14</span>
         <ion-button shape="round" size="small" fill="none">
           <ion-icon slot="icon-only" name="scan"></ion-icon>
         </ion-button>
-      </div>
+      </ion-row>
+      <ion-range min="0" value="5"></ion-range>
     </div>
+
+
   </div>
 </div>
