@@ -9,11 +9,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoPanelComponent } from './video-panel/video-panel.component';
+import { VideoPlayerComponent } from './video-player/video-player.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VideoPanelComponent
+    VideoPanelComponent,
+    VideoPlayerComponent
   ],
   imports: [
     BrowserModule,
