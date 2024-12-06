@@ -1,5 +1,5 @@
 <div class="videoPanel">
-  <video src="../../assets/video/video.mp4" class="mainVideo" autoplay></video>
+  <video #videoPlayer src="../../assets/video/video.mp4" class="mainVideo" autoplay></video>
   <div class="controls">
 
     <div class="topMenu">
@@ -8,33 +8,63 @@
           <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
-      <ion-button shape="round" size="small" fill="none">
+      <ion-button shape="round" size="small" fill="none" (click)="presentPopover($event)">
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </div>
 
     <div class="midMenu">
-      <ion-button shape="round" size="small" fill="none">
+      <ion-button shape="round" fill="none" (click)="skipBackward()">
         <ion-icon slot="icon-only" name="play-back"></ion-icon>
       </ion-button>
-      <ion-button shape="round" fill="none">
-        <ion-icon slot="icon-only" name="Play"></ion-icon>
+      <ion-button shape="round" size="large" fill="none" (click)="togglePlay()">
+        <ion-icon slot="icon-only" [name]="isPlaying ? 'pause' : 'play'"></ion-icon>
       </ion-button>
-      <ion-button shape="round" size="small" fill="none">
+      <ion-button shape="round" fill="none" (click)="skipForward()">
         <ion-icon slot="icon-only" name="play-forward"></ion-icon>
       </ion-button>
     </div>
 
     <div class="bottomMenu">
       <ion-row>
-        <span>0:03 / 24:14</span>
+        <span>{{ currentTime | number:'1.0-0' }} / {{ duration | number:'1.0-0' }}</span>
         <ion-button shape="round" size="small" fill="none">
           <ion-icon slot="icon-only" name="scan"></ion-icon>
         </ion-button>
       </ion-row>
-      <ion-range min="0" value="5"></ion-range>
+
+      <ion-range min="0" [value]="currentTime" [max]="duration" (ionChange)="onRangeChange($event)">
+      </ion-range>
     </div>
 
 
   </div>
 </div>
+
+<ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
+  <ng-template>
+    <ion-content>
+      <ion-item>
+        <ion-select label="Quality"  interface="action-sheet" placeholder="Select Quality">
+          <ion-select-option> 1080p </ion-select-option>
+          <ion-select-option> 720p </ion-select-option>
+          <ion-select-option> 480p </ion-select-option>
+          <ion-select-option> 360p </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Speed" interface="action-sheet"
+          placeholder="Select Playback Speed">
+          <ion-select-option> 0.25x </ion-select-option>
+          <ion-select-option> 0.5x </ion-select-option>
+          <ion-select-option> 1x </ion-select-option>
+          <ion-select-option> 1.25x </ion-select-option>
+          <ion-select-option> 1.5x </ion-select-option>
+          <ion-select-option> 2x </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-content>
+  </ng-template>
+</ion-popover>
+
+
