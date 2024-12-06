@@ -1,53 +1,39 @@
 <div class="videoPlayer">
-  <video src="../../assets/video/video.mp4" id="mainVideo"></video>
+  <video src="../../assets/video/video.mp4" id="mainVideo" autoplay #videoElement></video>
   <div class="controls">
 
     <div class="progressArea">
-      <div class="progressBar">
-        <span></span>
-      </div>
+      <input type="range" class="progressBar" id="progressBar" value="0" step="1" min="0" />
     </div>
 
     <div class="subControls">
-
       <div class="leftControl">
-
-        <ion-button shape="round" size="small">
+        <ion-button shape="round" size="small" fill="none">
           <ion-icon slot="icon-only" name="play-skip-back"></ion-icon>
         </ion-button>
-
-        <ion-button shape="round" size="small">
-          <ion-icon slot="icon-only" name="play"></ion-icon>
+        <ion-button shape="round" size="small" fill="none" (click)="togglePlayPause(videoElement)">
+          <ion-icon slot="icon-only" [name]="isPlaying ? 'pause' : 'play'"></ion-icon>
         </ion-button>
-
-        <ion-button shape="round" size="small">
+        <ion-button shape="round" size="small" fill="none">
           <ion-icon slot="icon-only" name="play-skip-forward"></ion-icon>
         </ion-button>
 
-        
-
         <div class="sound">
-          <ion-button shape="round" size="small">
+          <ion-button shape="round" size="small" fill="none">
             <ion-icon slot="icon-only" name="volume-medium"></ion-icon>
           </ion-button>
-          <div class="soundArea">
-            <div class="soundBar">
-              <span></span>
-            </div>
-          </div>
+          <input type="range" class="soundBar" id="volumeControl" value="100" step="1" min="0" max="100"/>
         </div>
       </div>
+
       <div class="rightControl">
-        <ion-button shape="round" size="small">
+        <ion-button shape="round" size="small" fill="none">
           <ion-icon slot="icon-only" name="settings"></ion-icon>
         </ion-button>
-        <ion-button shape="round" size="small">
+        <ion-button shape="round" size="small" fill="none">
           <ion-icon slot="icon-only" name="scan"></ion-icon>
         </ion-button>
-
       </div>
-
     </div>
-
   </div>
 </div>
