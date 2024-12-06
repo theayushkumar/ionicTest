@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Name</ion-label>
+    <ion-text>{{ userData?.Name }}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Email</ion-label>
+    <ion-text>{{ userData?.EmailId }}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Profile Image</ion-label>
+    <ion-img [src]="userData?.Profile"></ion-img>
+  </ion-item>
+</ion-content>

@@ -1,0 +1,63 @@
+.videoPlayer {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    display: block;
+    background-color: red;
+    position: relative;
+
+    video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        background-color: var(--color-dark);
+    }
+
+    .controls {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 3.7));
+        color: white;
+
+
+        ion-button {
+            color: white;
+        }
+
+
+
+        ion-range {
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+
+
+        .settings-menu {
+            position: absolute;
+            bottom: 50px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 100;
+            min-width: 250px;
+
+
+            ion-item {
+                --background: #525252;
+                color: white;
+
+                ion-icon {
+                    color: white;
+                    margin: 0px 5px 0px 0px;
+                }
+            }
+
+        }
+    }
+
+}
