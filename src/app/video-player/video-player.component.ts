@@ -6,15 +6,16 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./video-player.component.scss'],
 })
 export class VideoPlayerComponent implements OnInit {
-
   @ViewChild('videoPlayer', { static: false }) videoPlayer!: ElementRef<HTMLVideoElement>;
-  @ViewChild('popover') popover!: { event: Event; };
+  @ViewChild('popover') popover!: { event: Event };
 
   currentTime: number = 0;
   duration: number = 0;
-  isPlaying: boolean = false; 
+  isPlaying: boolean = false;
   isFullscreen: boolean = false;
   isOpen = false;
+  controlsVisible: boolean = true;
+  private controlsTimeout: any;
 
   constructor() { }
 
@@ -24,76 +25,84 @@ export class VideoPlayerComponent implements OnInit {
     const video = this.videoPlayer.nativeElement;
     video.addEventListener('timeupdate', this.updateVideoTime.bind(this));
     video.addEventListener('loadedmetadata', this.setVideoDuration.bind(this));
-    video.addEventListener('play', this.onPlay.bind(this));   // Event listener for play
-    video.addEventListener('pause', this.onPause.bind(this)); // Event listener for pause
+    video.addEventListener('play', () => (this.isPlaying = true));
+    video.addEventListener('pause', () => (this.isPlaying = false));
+    this.showControlsTemporarily();
   }
 
-  // Update currentTime as the video plays
   updateVideoTime() {
     this.currentTime = this.videoPlayer.nativeElement.currentTime;
   }
 
-  // Set video duration once the metadata is loaded
   setVideoDuration() {
     this.duration = this.videoPlayer.nativeElement.duration;
   }
 
-  // Update play state when the video starts playing
-  onPlay() {
-    this.isPlaying = true;
-  }
-
-  // Update play state when the video is paused
-  onPause() {
-    this.isPlaying = false;
-  }
-
-  // Play or Pause the video
   togglePlay() {
     const video = this.videoPlayer.nativeElement;
-    if (video.paused) {
-      video.play();
-    } else {
-      video.pause();
-    }
+    video.paused ? video.play() : video.pause();
+    this.showControlsTemporarily();
   }
 
-  // Skip backward by 10 seconds
   skipBackward() {
     const video = this.videoPlayer.nativeElement;
-    video.currentTime -= 10;
+    video.currentTime = Math.max(video.currentTime - 10, 0);
+    this.showControlsTemporarily();
   }
 
-  // Skip forward by 10 seconds
   skipForward() {
     const video = this.videoPlayer.nativeElement;
-    video.currentTime += 10;
+    video.currentTime = Math.min(video.currentTime + 10, this.duration);
+    this.showControlsTemporarily();
   }
 
   onRangeChange(event: any) {
     const video = this.videoPlayer.nativeElement;
     video.currentTime = event.detail.value;
+    this.showControlsTemporarily();
   }
 
   presentPopover(e: Event) {
     this.popover.event = e;
     this.isOpen = true;
+    this.showControlsTemporarily();
   }
 
-
   toggleFullscreen() {
-    const video = this.videoPlayer.nativeElement;
+    const videoPanel = document.querySelector('.videoPanel') as HTMLElement;
+
     if (!this.isFullscreen) {
-      if (video.requestFullscreen) {
-        video.requestFullscreen();
+      if (videoPanel.requestFullscreen) {
+        videoPanel.requestFullscreen();
+      } else if ((videoPanel as any).webkitRequestFullscreen) {
+        (videoPanel as any).webkitRequestFullscreen(); // For iOS Safari
       }
+
+      if ((screen.orientation as any)?.lock) {
+        (screen.orientation as any).lock('landscape').catch(console.warn);
+      }
+
       this.isFullscreen = true;
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       }
+
+      if ((screen.orientation as any)?.unlock) {
+        (screen.orientation as any).unlock();
+      }
+
       this.isFullscreen = false;
     }
+    this.showControlsTemporarily();
   }
 
+  showControlsTemporarily() {
+    this.controlsVisible = true;
+
+    clearTimeout(this.controlsTimeout);
+    this.controlsTimeout = setTimeout(() => {
+      this.controlsVisible = false;
+    }, 3000);
+  }
 }

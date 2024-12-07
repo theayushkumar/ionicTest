@@ -1,10 +1,10 @@
-<div class="videoPanel">
-  <video #videoPlayer src="../../assets/video/video.mp4" class="mainVideo" autoplay></video>
-  <div class="controls">
-
+<div class="videoPanel" (click)="showControlsTemporarily()">
+  <video #videoPlayer src="../../assets/video/video.mp4" class="mainVideo" autoplay controlsList="nodownload"
+    playsinline muted></video>
+  <div class="controls" [class.hide]="!controlsVisible" (click)="$event.stopPropagation()">
     <div class="topMenu">
       <ion-buttons slot="start">
-        <ion-button shape="round" routerLink="#">
+        <ion-button shape="round" routerLink="/home/subject/chapter">
           <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -27,23 +27,17 @@
 
     <div class="bottomMenu">
       <ion-row>
-        <span>{{ currentTime | number:'1.0-0' }} / {{ duration | number:'1.0-0' }}</span>
+        <span>{{ currentTime | number: '1.0-0' }} / {{ duration | number: '1.0-0' }}</span>
 
         <ion-button fill="none" shape="round" size="small" (click)="toggleFullscreen()">
           <ion-icon name="expand-outline" *ngIf="!isFullscreen"></ion-icon>
           <ion-icon name="contract-outline" *ngIf="isFullscreen"></ion-icon>
         </ion-button>
-
-        <!-- <ion-button shape="round" size="small" fill="none">
-          <ion-icon slot="icon-only" name="scan"></ion-icon>
-        </ion-button> -->
       </ion-row>
 
       <ion-range min="0" [value]="currentTime" [max]="duration" (ionChange)="onRangeChange($event)">
       </ion-range>
     </div>
-
-
   </div>
 </div>
 
@@ -51,26 +45,23 @@
   <ng-template>
     <ion-content>
       <ion-item>
-        <ion-select label="Quality"  interface="action-sheet" placeholder="Select Quality">
-          <ion-select-option> 1080p </ion-select-option>
-          <ion-select-option> 720p </ion-select-option>
-          <ion-select-option> 480p </ion-select-option>
-          <ion-select-option> 360p </ion-select-option>
+        <ion-select label="Quality" interface="action-sheet" placeholder="Select Quality">
+          <ion-select-option>1080p</ion-select-option>
+          <ion-select-option>720p</ion-select-option>
+          <ion-select-option>480p</ion-select-option>
+          <ion-select-option>360p</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-select label="Speed" interface="action-sheet"
-          placeholder="Select Playback Speed">
-          <ion-select-option> 0.25x </ion-select-option>
-          <ion-select-option> 0.5x </ion-select-option>
-          <ion-select-option> 1x </ion-select-option>
-          <ion-select-option> 1.25x </ion-select-option>
-          <ion-select-option> 1.5x </ion-select-option>
-          <ion-select-option> 2x </ion-select-option>
+        <ion-select label="Speed" interface="action-sheet" placeholder="Select Playback Speed">
+          <ion-select-option>0.25x</ion-select-option>
+          <ion-select-option>0.5x</ion-select-option>
+          <ion-select-option>1x</ion-select-option>
+          <ion-select-option>1.25x</ion-select-option>
+          <ion-select-option>1.5x</ion-select-option>
+          <ion-select-option>2x</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-content>
   </ng-template>
 </ion-popover>
-
-

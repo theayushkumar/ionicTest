@@ -7,6 +7,8 @@
   .mainVideo {
     height: 100%;
     width: 100%;
+    pointer-events: none;
+    user-select: none;
   }
 
   .controls {
@@ -19,6 +21,14 @@
     flex-direction: column;
     justify-content: space-between;
     background: rgb(0 0 0 / 40%);
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+
+    &.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
 
     .topMenu {
       display: flex;
@@ -78,6 +88,12 @@
 
 
 @media screen and (orientation: landscape) {
+  .mainVideo {
+    height: 100vh !important;
+    pointer-events: none;
+    user-select: none;
+  }
+
   .controls {
     height: 100vh !important;
   }
